@@ -1,22 +1,15 @@
--- phpMyAdmin SQL Dump
--- version 4.8.5
--- https://www.phpmyadmin.net/
---
--- Host: 127.0.0.1
--- Generation Time: 23-May-2023 às 19:18
--- Versão do servidor: 10.1.38-MariaDB
--- versão do PHP: 7.3.2
-
+-- Define o modo SQL para evitar autovalor em zero
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+
+-- Desativa o autocommit para permitir transações manuais
 SET AUTOCOMMIT = 0;
+
+-- Inicia uma nova transação
 START TRANSACTION;
+
+-- Define o fuso horário para a sessão atual como UTC
 SET time_zone = "+00:00";
 
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
 
 --
 -- Database: `atendimento_prefeitura_sao_leopoldo`
@@ -28,6 +21,9 @@ SET time_zone = "+00:00";
 -- Estrutura da tabela `cadastro`
 --
 
+
+
+-- Criação da tabela `cadastro`
 CREATE TABLE `cadastro` (
   `numero` int(11) NOT NULL,
   `solicitante` varchar(255) NOT NULL,
@@ -38,10 +34,9 @@ CREATE TABLE `cadastro` (
   `dataCadastro` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Extraindo dados da tabela `cadastro`
---
 
+-- Inserção de dados na tabela `cadastro`
+-- Lista de valores inseridos...
 INSERT INTO `cadastro` (`numero`, `solicitante`, `descricao`, `email`, `ano`, `status`, `dataCadastro`) VALUES
 (2, 'joao', 'Quero um emprestimo', 'joao@joao.com', 2023, 1, '2023-09-12 10:01:51'),
 (3, 'Arthur', 'loucuras', 'loucuras@email.com', 2023, 1, '2023-09-12 15:48:33'),
@@ -145,27 +140,10 @@ INSERT INTO `cadastro` (`numero`, `solicitante`, `descricao`, `email`, `ano`, `s
 (101, 'Vanessa', 'Fi do BILL', 'Bill@email.com', 2023, 1, '2023-09-14 09:13:12'),
 (102, 'yuri', 'quero credito', 'yuri@email.com', 2023, 1, '2023-09-14 09:22:14');
 
---
--- Indexes for dumped tables
---
 
---
--- Indexes for table `cadastro`
---
+-- Define `numero` como chave primária
 ALTER TABLE `cadastro`
   ADD PRIMARY KEY (`numero`);
 
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `cadastro`
---
-ALTER TABLE `cadastro`
-  MODIFY `numero` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
-COMMIT;
-
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+-- Define `numero` como chave primária autoincrementada
+ALTER TABLE `cadastro` MODIFY `numero` INT AUTO_INCREMENT PRIMARY KEY;
