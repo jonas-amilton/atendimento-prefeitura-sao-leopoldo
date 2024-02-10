@@ -1,77 +1,54 @@
 <?php
+
+include_once('../conexao/Conexao.php');
+
 class Cadastro
 {
-    public $conectar;
+    private $conexao;
 
-    //fazer a conexão com banco de dados
     public function __construct()
     {
         try {
-            $conn = new PDO("mysql:host=localhost;dbname=atendimento_prefeitura_sao_leopoldo", "root", "");
-
-            $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-            $this->conectar = $conn;
+            $conexao = new Conexao();
+            $this->conexao = $conexao->getConexao();
         } catch (PDOException $e) {
-            echo 'Erro com o banco de dados: ' . $e->getMessage();
+            throw new Exception('Erro ao conectar ao banco de dados: ' . $e->getMessage());
         }
     }
 
-    //Listar ultimo cadastro registrado
     public function listar()
     {
         try {
-            $stmt = $this->conectar->prepare('SELECT * FROM cadastro ORDER BY numero DESC LIMIT 1');
-
+            $stmt = $this->conexao->prepare('SELECT * FROM cadastro ORDER BY numero DESC LIMIT 1');
             $stmt->execute();
-
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return json_encode($results);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo 'ERROR: ' . $e->getMessage();
+            throw new Exception('Erro ao listar cadastros: ' . $e->getMessage());
         }
     }
 
-
-
-    // inserção de dados
     public function inserir($solicitante, $descricao, $email, $ano, $status)
     {
         try {
-
-            $stmt = $this->conectar->prepare('INSERT INTO cadastro (solicitante, descricao, email, ano, status) VALUES(:SOLICITANTE,:DESCRICAO,:EMAIL,:ANO,:STATUS)');
-
+            $stmt = $this->conexao->prepare('INSERT INTO cadastro (solicitante, descricao, email, ano, status) VALUES(:SOLICITANTE,:DESCRICAO,:EMAIL,:ANO,:STATUS)');
             $stmt->execute(array(':SOLICITANTE' => $solicitante, ':DESCRICAO' => $descricao, ':EMAIL' => $email, ':ANO' => $ano, ':STATUS' => $status));
-
-
-            if ($stmt->rowCount() > 0) {
-                return true;
-            }
+            return $stmt->rowCount() > 0;
         } catch (PDOException $e) {
-            echo 'ERROR: ' . $e->getMessage();
+            throw new Exception('Erro ao inserir cadastro: ' . $e->getMessage());
         }
     }
 
-
-    // Listar por ID(numero)
     public function listarUm($id)
     {
         try {
-            $stmt = $this->conectar->prepare("SELECT * FROM cadastro WHERE numero =? ");
-
-            $stmt->bindParam(1, $id);
-
-            $id = $_POST["numero"];
-
-            $stmt->execute();
-
-            $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return json_encode($results);
+            $stmt = $this->conexao->prepare("SELECT * FROM cadastro WHERE numero = ?");
+            $stmt->execute([$id]);
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo 'ERROR: ' . $e->getMessage();
+            throw new Exception('Erro ao listar cadastro por ID: ' . $e->getMessage());
         }
     }
+}
 
 
     //Jonas Silva ® RA:1803097
-}
