@@ -10,10 +10,10 @@
 
     <title>Prefeitura de São Leopoldo</title>
 
-    <link rel="stylesheet" href="style/global.css">
+    <link rel="stylesheet" href="css/style.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
 </head>
 
 <body>
@@ -24,23 +24,20 @@
         </div>
     </nav>
 
-    <div class="container-principal">
+    <div class="container-login">
+        <form class="card card-shadow login mt-2 d-flex flex-column" action="protocolo.php" method="post">
+            <h3 class="text-center">
+                Abertura de Protocolos
+                <br>
+                <small class="text-body-secondary">Login</small>
+            </h3>
+            <label for="email">Digite seu email</label>
+            <input type="email" name="email" id="email" required>
+            <label for="password">Digite sua senha</label>
+            <input type="password" name="password" id="password">
+            <input class="btn btn-primary mt-3" type="submit" value="enviar" required>
+        </form>
 
-        <div class="card" style="width: 18rem;">
-            <img src="assets/cadastro-protocolo.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <p class="card-text">Cadastre um protocolo de atendimento aqui.</p>
-                <a href="Cadastrar.php" class="btn btn-primary">CADASTRAR PROTOCOLO DE ATENDIMENTO</a>
-            </div>
-        </div>
-
-        <div class="card" style="width: 18rem;">
-            <img src="assets/pesquisa-protocolo.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-                <p class="card-text">Pesquise um protocolo de atendimento aqui.</p>
-                <a href="Pesquisa.php" class="btn btn-primary">PESQUISAR POR PROTOCOLO DE ATENDIMENTO</a>
-            </div>
-        </div>
     </div>
 
 
